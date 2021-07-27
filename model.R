@@ -10,12 +10,10 @@
 
 library(tensorflow)  # requires also the Python Tensorflow
 library(keras)
-library(reticulate)
 library(data.table)
 library(zeallot)
 
 source("generate_features.R")
-source_python("crop_generator.py")
 
 # Set seed for reproducibility
 set.seed(101) 

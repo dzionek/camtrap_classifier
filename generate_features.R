@@ -1,5 +1,17 @@
-library(tensorflow)  # requires also the Python Tensorflow
+####
+## Generate features from images.
+##
+## This script will get inception-v3 features (2048 values)
+## from images from a provided directory and optionally save them.
+##
+###
+
+library(tensorflow)  # Tensor flow also the Python Tensorflow
 library(keras)
+library(reticulate)
+library(data.table)
+
+source_python("crop_generator.py")
 
 # Inception model without fully connected top layer, with max pooling
 # This is our 'feature generator'.
@@ -49,11 +61,12 @@ extract_features_inception_v3 <- function(img_path, top_trim, bottom_trim) {
   feats
 }
 
-#' Get features from a directory of images.
+#' Get features from a directory of images. Optionally save them to a file.
 #' 
 #' @param directory_path The path to the base directory of images.
 #' @param top_trim The number of pixels that should be trimmed from the top.
 #' @param bottom_trim The number of pixels that should be trimmed from the bottom.
+#' @param save True if the features should be saved, false otherwise.
 #' @return The data frame of features associated with the given images.
 get_features <- function(directory_path, top_trim, bottom_trim, save = FALSE) {
   files <- list.files(
@@ -73,7 +86,6 @@ get_features <- function(directory_path, top_trim, bottom_trim, save = FALSE) {
   ))
   
   if (save) {
-    # Store result as a file for this directory in the current working directory
     fwrite(features_df, "_features_v3.csv")
   }
   
