@@ -81,14 +81,15 @@ get_features <- function(directory_path, top_trim, bottom_trim, save = FALSE) {
   }
   
   # Convert to dataframe
-  features_df <- data.frame(matrix(
-    unlist(feature_list), nrow=length(feature_list), byrow=TRUE
-  ))
-  
   if (save) {
+    features_df <- data.frame(filename = names(feature_list), matrix(
+      unlist(feature_list), nrow=length(feature_list), byrow=TRUE
+    ))
     fwrite(features_df, "_features_v3.csv")
+  } else {
+    features_df <- data.frame(matrix(
+      unlist(feature_list), nrow=length(feature_list), byrow=TRUE
+    ))
+    return(features_df)
   }
-  
-  # Do not print the output (useful if just used to save features.)
-  invisible(features_df)
 }
