@@ -7,3 +7,6 @@
 *_features_v3_EMPTY.csv
 *_results_v3.csv
 *_images.html
+inputs_neg.csv
+inputs_pos.csv
+*.DS_Store

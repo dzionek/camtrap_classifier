@@ -10,6 +10,14 @@ library(tensorflow)
 library(keras)
 library(data.table)
 
+#' Apply the classification model to the data. Results are stored in
+#' the results file.
+#' 
+#' @param source_dir The source directory with feature files and the model.
+#' @param model_name The name of the model created in model.R
+#' @param threshold The probability threshold associated with the positive class.
+#' @param pos_label The label of the positive class.
+#' @param neg_label The label of the negative class.
 apply_model <- function(source_dir, model_name, threshold, pos_label, neg_label) {
   classify_model <- load_model_tf(model_name)
   files <- list.files(
